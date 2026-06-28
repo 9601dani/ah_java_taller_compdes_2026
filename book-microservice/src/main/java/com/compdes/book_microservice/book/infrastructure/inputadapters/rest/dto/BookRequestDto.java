@@ -8,7 +8,7 @@ import lombok.Value;
 import java.time.LocalDate;
 
 @Value
-public class CreateBookRequestDto {
+public class BookRequestDto {
 
     @NotBlank
     private String title;

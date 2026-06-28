@@ -6,7 +6,7 @@ import lombok.Value;
 import java.time.LocalDate;
 
 @Value
-public class CreateBookResponseDto {
+public class BookResponseDto {
 
     private String title;
     private String authorName;
@@ -14,8 +14,8 @@ public class CreateBookResponseDto {
     private String state;
     private String category;
 
-    public static CreateBookResponseDto fromDomain(Book book) {
-        return new CreateBookResponseDto(
+    public static BookResponseDto fromDomain(Book book) {
+        return new BookResponseDto(
                 book.getTitle().getTitle(),
                 book.getAuthorName(),
                 book.getPublicationDate().getPublicationDate(),

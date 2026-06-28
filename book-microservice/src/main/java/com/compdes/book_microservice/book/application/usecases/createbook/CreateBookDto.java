@@ -6,9 +6,11 @@ import com.compdes.book_microservice.book.domain.BookPublicationDate;
 import com.compdes.book_microservice.book.domain.BookTitle;
 import com.compdes.book_microservice.category.domain.Category;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 
 import java.time.LocalDate;
 
+@Value
 @AllArgsConstructor
 public class CreateBookDto {
 

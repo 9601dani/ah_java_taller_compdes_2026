@@ -5,8 +5,6 @@ import com.compdes.book_microservice.common.domain.annotations.DomainEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDate;
-
 @DomainEntity
 @AllArgsConstructor
 @Getter
