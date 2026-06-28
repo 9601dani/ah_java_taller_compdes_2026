@@ -12,4 +12,7 @@ import lombok.Getter;
 public class Category {
     private String name;
 
+    public static Category toDomain(String name) {
+        return new Category(name);
+    }
 }
