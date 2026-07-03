@@ -4,10 +4,12 @@ import com.compdes.book_microservice.book.domain.Book;
 import lombok.Value;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Value
 public class BookResponseDto {
 
+    private UUID id;
     private String title;
     private String authorName;
     private LocalDate publicationDate;
@@ -16,6 +18,7 @@ public class BookResponseDto {
 
     public static BookResponseDto fromDomain(Book book) {
         return new BookResponseDto(
+                book.getBookId().getId(),
                 book.getTitle().getTitle(),
                 book.getAuthorName(),
                 book.getPublicationDate().getPublicationDate(),

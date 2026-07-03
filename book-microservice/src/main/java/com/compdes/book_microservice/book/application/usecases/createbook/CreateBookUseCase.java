@@ -1,7 +1,7 @@
 package com.compdes.book_microservice.book.application.usecases.createbook;
 
 import com.compdes.book_microservice.book.application.inputports.CreatingBookInputPort;
-import com.compdes.book_microservice.book.application.outputports.persistence.FindingBookByNameOutputPort;
+import com.compdes.book_microservice.book.application.outputports.persistence.FindingBookByIdOutputPort;
 import com.compdes.book_microservice.book.application.outputports.persistence.StoringBookOutputPort;
 import com.compdes.book_microservice.book.domain.Book;
 import com.compdes.book_microservice.category.application.outputports.persistence.FindingCategoryByNameOutputPort;
@@ -16,11 +16,11 @@ import java.util.Optional;
 public class CreateBookUseCase implements CreatingBookInputPort {
 
     private final StoringBookOutputPort storingBookOutputPort;
-    private final FindingBookByNameOutputPort findingBookByNameOutputPort;
+    private final FindingBookByIdOutputPort findingBookByNameOutputPort;
     private final FindingCategoryByNameOutputPort findingCategoryByNameOutputPort;
 
     public CreateBookUseCase(StoringBookOutputPort storingBookOutputPort,
-                             FindingBookByNameOutputPort findingBookByNameOutputPort,
+                             FindingBookByIdOutputPort findingBookByNameOutputPort,
                              FindingCategoryByNameOutputPort findingCategoryByNameOutputPort) {
         this.storingBookOutputPort = storingBookOutputPort;
         this.findingBookByNameOutputPort = findingBookByNameOutputPort;

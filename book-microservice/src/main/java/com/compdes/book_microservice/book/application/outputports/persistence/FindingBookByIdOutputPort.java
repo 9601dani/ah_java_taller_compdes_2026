@@ -6,7 +6,7 @@ import com.compdes.book_microservice.common.application.exceptions.EntityNotFoun
 import java.util.Optional;
 import java.util.UUID;
 
-public interface FindingBookByNameOutputPort {
+public interface FindingBookByIdOutputPort {
 
     Optional<Book> findBookById(UUID id) throws EntityNotFoundException;
 }
