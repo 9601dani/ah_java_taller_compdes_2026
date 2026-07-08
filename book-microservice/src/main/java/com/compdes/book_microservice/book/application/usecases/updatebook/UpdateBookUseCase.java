@@ -40,7 +40,9 @@ public class UpdateBookUseCase implements UpdatingBookInputPort {
         if (category.isEmpty())
             throw new EntityNotFoundException("No se encontró la categoría " + categoryName + " para el libro");
 
-        Book book = dto.toDomain(id);
+
+        Book book = bookFound.get().updateEntity(dto, category.get());
+
         return this.storingBookOutputPort.save(book);
     }
 }
