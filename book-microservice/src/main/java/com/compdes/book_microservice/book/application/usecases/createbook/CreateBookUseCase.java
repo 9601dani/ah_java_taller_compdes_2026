@@ -29,8 +29,7 @@ public class CreateBookUseCase implements CreatingBookInputPort {
 
     @Override
     public Book save(CreateBookDto dto) throws EntityAlreadyExistException, EntityNotFoundException {
-        // TODO: VERIFY UNIQUE ID OR NAME
-        String categoryName = dto.getCategory();;
+        String categoryName = dto.getCategory();
         Optional<Category> category = this.findingCategoryByNameOutputPort.findByName(categoryName);
 
         if (category.isEmpty())

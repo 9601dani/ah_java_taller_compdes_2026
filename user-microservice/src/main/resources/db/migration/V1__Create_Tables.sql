@@ -1,4 +1,8 @@
 CREATE TABLE users (
-    username VARCHAR(100) PRIMARY KEY,
-    description TEXT NULL
+    user_name VARCHAR(100) PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NULL,
+    description TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT NULL
 );

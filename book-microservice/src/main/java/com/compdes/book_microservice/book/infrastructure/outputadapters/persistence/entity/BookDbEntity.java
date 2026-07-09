@@ -1,15 +1,16 @@
 package com.compdes.book_microservice.book.infrastructure.outputadapters.persistence.entity;
 
 import com.compdes.book_microservice.category.infrastructure.outputadapters.persistence.entity.CategoryDbEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class BookDbEntity {
 
     @Id
@@ -30,4 +32,18 @@ public class BookDbEntity {
     private String state;
     private String category;
 
+    @CreatedDate
+    private Instant createdAt;
+
+    @LastModifiedDate
+    private Instant updatedAt;
+
+    public BookDbEntity(UUID id, String title, String authorName, LocalDate publicationDate, String state, String category) {
+        this.id = id;
+        this.title = title;
+        this.authorName = authorName;
+        this.publicationDate = publicationDate;
+        this.state = state;
+        this.category = category;
+    }
 }
