@@ -18,7 +18,6 @@ public class UpdateBookDto {
     private String title;
     private String authorName;
     private LocalDate publicationDate;
-    private Boolean isAvailable;
     private String category;
 
     public Book toDomain(UUID id) {
@@ -27,7 +26,7 @@ public class UpdateBookDto {
                 BookTitle.toDomain(this.title),
                 this.authorName,
                 BookPublicationDate.fromDomain(this.publicationDate),
-                this.isAvailable,
+                true,
                 Category.toDomain(this.category)
         );
     }

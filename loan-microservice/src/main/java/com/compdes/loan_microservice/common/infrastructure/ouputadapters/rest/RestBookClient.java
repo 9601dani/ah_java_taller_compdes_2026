@@ -11,10 +11,17 @@ public class RestBookClient {
     @Value("${BOOK_CLIENT_URI:http://localhost:8001}")
     private String bookClientUri;
 
-    @Bean("RestBookClient")
-    public RestClient restBookClient() {
+    @Bean("RestCheckBookClient")
+    public RestClient restCheckBookClient() {
         return RestClient.builder()
-                .baseUrl(bookClientUri + "/v1/books/availability")
+                .baseUrl(bookClientUri + "/v1/books/find-available/")
+                .build();
+    }
+
+    @Bean("RestUpdateBookClient")
+    public RestClient restUpdateBookClient() {
+        return RestClient.builder()
+                .baseUrl(bookClientUri + "/v1/books/availability/")
                 .build();
     }
 }

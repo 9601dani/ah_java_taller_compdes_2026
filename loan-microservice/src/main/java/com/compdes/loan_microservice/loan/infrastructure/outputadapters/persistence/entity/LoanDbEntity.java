@@ -41,7 +41,7 @@ public class LoanDbEntity {
     @LastModifiedDate
     private Instant updatedAt;
 
-    public LoanDbEntity(UUID id, String userName, UUID bookId, Boolean isActive, LocalDate initDate, LocalDate endDate) {
+    public LoanDbEntity(UUID id, String userName, UUID bookId, LocalDate initDate, LocalDate endDate, Boolean isActive) {
         this.id = id;
         this.userName = userName;
         this. bookId = bookId;

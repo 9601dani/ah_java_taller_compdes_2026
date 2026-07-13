@@ -21,9 +21,6 @@ public class BookRequestDto {
     private LocalDate publicationDate;
 
     @NotBlank
-    private Boolean isAvailable;
-
-    @NotBlank
     private String category;
 
     public CreateBookDto toDomain() { // toApplication
@@ -31,7 +28,6 @@ public class BookRequestDto {
                 this.title,
                 this.authorName,
                 this.publicationDate,
-                this.isAvailable,
                 this.category
         );
     }
@@ -41,7 +37,6 @@ public class BookRequestDto {
                 this.title,
                 this.authorName,
                 this.publicationDate,
-                this.isAvailable,
                 this.category
         );
     }

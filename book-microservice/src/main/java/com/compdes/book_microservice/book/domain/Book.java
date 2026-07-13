@@ -22,7 +22,7 @@ public class Book {
         this.title = BookTitle.toDomain(dto.getTitle());
         this.authorName = dto.getAuthorName();
         this.publicationDate = BookPublicationDate.fromDomain(dto.getPublicationDate());
-        this.isAvailable = dto.getIsAvailable();
+        this.isAvailable = true;
         this.category = category;
         return this;
     }

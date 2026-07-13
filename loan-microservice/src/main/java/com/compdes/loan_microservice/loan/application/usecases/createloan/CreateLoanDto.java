@@ -13,7 +13,6 @@ public class CreateLoanDto {
 
     private String userName;
     private UUID bookId;
-    private LocalDate initDate;
     private LocalDate endDate;
 
     public Loan toDomain() {
@@ -21,7 +20,7 @@ public class CreateLoanDto {
                 LoanId.generate(),
                 UserName.fromString(userName),
                 BookId.fromUUID(bookId),
-                InitDate.fromLocalDate(initDate),
+                InitDate.fromLocalDate(LocalDate.now()),
                 EndDate.fromLocalDate(endDate),
                 true
         );

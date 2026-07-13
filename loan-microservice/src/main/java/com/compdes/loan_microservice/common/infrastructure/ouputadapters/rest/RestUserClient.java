@@ -14,7 +14,7 @@ public class RestUserClient {
     @Bean("RestUserClient")
     public RestClient restUserClient() {
         return RestClient.builder()
-                .baseUrl(userClientUri + "/v1/users/check")
+                .baseUrl(userClientUri + "/v1/users/check/")
                 .build();
     }
 }

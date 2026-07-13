@@ -127,7 +127,8 @@ public class BookControllerAdapter {
             @ApiResponse(responseCode = "404", description = "Disponibilidad no actualizada.")
     })
     @PutMapping("/availability/{id}")
-    public ResponseEntity<BookResponseDto> updateBookAvailiability(@PathVariable UUID id) {
+    @Transactional
+    public ResponseEntity<BookResponseDto> updateBookAvailability(@PathVariable UUID id) {
         Book book = this.updatingBookAvailabilityInputPort.updateBookAvailability(id);
         return ResponseEntity.ok(BookResponseDto.fromDomain(book));
     }
