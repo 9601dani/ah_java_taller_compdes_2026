@@ -2,6 +2,7 @@ package com.compdes.user_microservice.user.infrastructure.outputadapters.persist
 
 import com.compdes.user_microservice.common.application.exceptions.EntityNotFoundException;
 import com.compdes.user_microservice.common.infrastructure.annotations.PersistenceAdapter;
+import com.compdes.user_microservice.user.application.outputports.persistence.FindingAllUsersOutputPort;
 import com.compdes.user_microservice.user.application.outputports.persistence.FindingUserByUserNameOutputPort;
 import com.compdes.user_microservice.user.application.outputports.persistence.StoringUserOutputPort;
 import com.compdes.user_microservice.user.domain.User;
@@ -11,10 +12,11 @@ import com.compdes.user_microservice.user.infrastructure.outputadapters.persiste
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @PersistenceAdapter
-public class UserRepositoryOutputAdapter implements StoringUserOutputPort, FindingUserByUserNameOutputPort {
+public class UserRepositoryOutputAdapter implements StoringUserOutputPort, FindingUserByUserNameOutputPort, FindingAllUsersOutputPort {
 
     private final UserPersistenceMapper userPersistenceMapper;
     private final UserDbEntityJpaRepository userDbEntityJpaRepository;
@@ -38,5 +40,12 @@ public class UserRepositoryOutputAdapter implements StoringUserOutputPort, Findi
         UserDbEntity userCreated = this.userDbEntityJpaRepository.save(userDbEntity);
 
         return this.userPersistenceMapper.toDomain(userCreated);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return this.userDbEntityJpaRepository.findAll()
+                .stream().map(this.userPersistenceMapper::toDomain)
+                .toList();
     }
 }

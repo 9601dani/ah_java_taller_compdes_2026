@@ -3,6 +3,7 @@ package com.compdes.user_microservice.user.infrastructure.inputadapters.rest;
 import com.compdes.user_microservice.common.infrastructure.annotations.WebAdapter;
 import com.compdes.user_microservice.user.application.inputports.CreatingUserInputPort;
 import com.compdes.user_microservice.user.application.inputports.FindingUserInputPort;
+import com.compdes.user_microservice.user.application.outputports.persistence.FindingAllUsersOutputPort;
 import com.compdes.user_microservice.user.application.usecases.createuser.CreateUserDto;
 import com.compdes.user_microservice.user.domain.User;
 import com.compdes.user_microservice.user.infrastructure.inputadapters.rest.dto.UserRequestDto;
@@ -17,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "users", description = "Operaciones relacionadas a los usuarios")
 @RestController
 @RequestMapping("/v1/users")
@@ -25,10 +28,14 @@ public class UserControllerAdapter {
 
     private final CreatingUserInputPort creatingUserInputPort;
     private final FindingUserInputPort findingUserInputPort;
+    private final FindingAllUsersOutputPort findingAllUsersOutputPort;
 
-    public UserControllerAdapter(CreatingUserInputPort creatingUserInputPort, FindingUserInputPort findingUserInputPort) {
+    public UserControllerAdapter(CreatingUserInputPort creatingUserInputPort,
+                                 FindingUserInputPort findingUserInputPort,
+                                 FindingAllUsersOutputPort findingAllUsersOutputPort) {
         this.creatingUserInputPort = creatingUserInputPort;
         this.findingUserInputPort = findingUserInputPort;
+        this.findingAllUsersOutputPort = findingAllUsersOutputPort;
     }
 
     @Operation(
@@ -72,10 +79,23 @@ public class UserControllerAdapter {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @RequestMapping(method = RequestMethod.HEAD, path = "/check/{id}")
-    @Transactional
     public ResponseEntity<Void> checkById(@PathVariable String id) {
         this.findingUserInputPort.findUser(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "Obtener información de todos los usuarios",
+            description = "Devuelve información relacionada con los usuarios"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuarios encontrados"),
+            @ApiResponse(responseCode = "404", description = "Usuarios no encontrados")
+    })
+    @GetMapping()
+    public ResponseEntity<List<UserResponseDto>> findAll() {
+        List<User> users = this.findingAllUsersOutputPort.findAllUsers();
+        return ResponseEntity.ok(users.stream().map(UserResponseDto::fromDomain).toList());
     }
 
 }
