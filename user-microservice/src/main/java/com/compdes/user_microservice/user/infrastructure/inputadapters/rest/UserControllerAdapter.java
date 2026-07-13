@@ -71,7 +71,7 @@ public class UserControllerAdapter {
             @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    @GetMapping("/check/{id}")
+    @RequestMapping(method = RequestMethod.HEAD, path = "/check/{id}")
     public ResponseEntity<Void> checkById(@PathVariable String id) {
         this.findingUserInputPort.findUser(id);
         return ResponseEntity.ok().build();
