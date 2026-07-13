@@ -72,6 +72,7 @@ public class UserControllerAdapter {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @RequestMapping(method = RequestMethod.HEAD, path = "/check/{id}")
+    @Transactional
     public ResponseEntity<Void> checkById(@PathVariable String id) {
         this.findingUserInputPort.findUser(id);
         return ResponseEntity.ok().build();

@@ -13,7 +13,7 @@ public class EndDate {
         if (endDate == null)
             throw new IllegalArgumentException("La fecha de devolución es inválida.");
 
-        if (endDate.isBefore(LocalDate.now()))
+        if (endDate.isBefore(LocalDate.now().plusDays(1)))
             throw new IllegalArgumentException("La fecha de devolución no puede ser una fecha anterior al día de hoy.");
 
         this.endDate = endDate;

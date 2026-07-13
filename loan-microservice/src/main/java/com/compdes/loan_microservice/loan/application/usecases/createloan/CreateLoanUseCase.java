@@ -38,9 +38,6 @@ public class CreateLoanUseCase implements CreatingLoanInputPort {
         // TODO: VERIFY USER EXISTS
         boolean userExists = this.existsUserIdOutputPort.existsUser(userName);
 
-        System.out.println("___________________________________________________");
-        System.out.println(userExists);
-
         if (!userExists)
             throw new EntityNotFoundException("No se encontró el usuario con nombre: " + userName);
 
