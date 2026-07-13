@@ -37,7 +37,7 @@ public class UserControllerAdapter {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuario creado"),
-            @ApiResponse(responseCode = "404", description = "Usuario no creado")
+            @ApiResponse(responseCode = "400", description = "Usuario no creado")
     })
     @PostMapping
     @Transactional
@@ -61,6 +61,20 @@ public class UserControllerAdapter {
         User user = this.findingUserInputPort.findUser(id);
         UserResponseDto userResponseDto = UserResponseDto.fromDomain(user);
         return ResponseEntity.ok(userResponseDto);
+    }
+
+    @Operation(
+            summary = "Obtener información de usuario",
+            description = "Devuelve información relacionada con el usuario"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @GetMapping("/check/{id}")
+    public ResponseEntity<Void> checkById(@PathVariable String id) {
+        this.findingUserInputPort.findUser(id);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -17,7 +17,7 @@ public class CreateBookDto {
     private String title;
     private String authorName;
     private LocalDate publicationDate;
-    private String state;
+    private Boolean isAvailable;
     private String category;
 
     public Book toDomain() {
@@ -26,7 +26,7 @@ public class CreateBookDto {
                 BookTitle.toDomain(this.title),
                 this.authorName,
                 BookPublicationDate.fromDomain(this.publicationDate),
-                this.state,
+                this.isAvailable,
                 Category.toDomain(this.category)
         );
     }

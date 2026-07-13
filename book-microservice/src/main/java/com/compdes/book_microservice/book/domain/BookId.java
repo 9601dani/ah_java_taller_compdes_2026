@@ -9,7 +9,7 @@ public class BookId {
 
     private UUID id;
 
-    public BookId (UUID id) {
+    public BookId(UUID id) {
         this.id = id;
     }
 

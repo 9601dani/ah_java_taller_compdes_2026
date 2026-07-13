@@ -21,7 +21,7 @@ public class BookRequestDto {
     private LocalDate publicationDate;
 
     @NotBlank
-    private String state;
+    private Boolean isAvailable;
 
     @NotBlank
     private String category;
@@ -31,7 +31,7 @@ public class BookRequestDto {
                 this.title,
                 this.authorName,
                 this.publicationDate,
-                this.state,
+                this.isAvailable,
                 this.category
         );
     }
@@ -41,7 +41,7 @@ public class BookRequestDto {
                 this.title,
                 this.authorName,
                 this.publicationDate,
-                this.state,
+                this.isAvailable,
                 this.category
         );
     }

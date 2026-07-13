@@ -1,8 +1,6 @@
 package com.compdes.book_microservice.book.infrastructure.inputadapters.rest;
 
-import com.compdes.book_microservice.book.application.inputports.CreatingBookInputPort;
-import com.compdes.book_microservice.book.application.inputports.ListingAllBooksInputPort;
-import com.compdes.book_microservice.book.application.inputports.UpdatingBookInputPort;
+import com.compdes.book_microservice.book.application.inputports.*;
 import com.compdes.book_microservice.book.application.usecases.createbook.CreateBookDto;
 import com.compdes.book_microservice.book.application.usecases.updatebook.UpdateBookDto;
 import com.compdes.book_microservice.book.domain.Book;
@@ -37,13 +35,19 @@ public class BookControllerAdapter {
     private final CreatingBookInputPort creatingBookInputPort;
     private final ListingAllBooksInputPort listingAllBooksInputPort;
     private final UpdatingBookInputPort updatingBookInputPort;
+    private final FindingAvailableBookInputPort findingAvailableBookInputPort;
+    private final UpdatingBookAvailabilityInputPort updatingBookAvailabilityInputPort;
 
     public BookControllerAdapter(CreatingBookInputPort creatingBookInputPort,
                                  ListingAllBooksInputPort listingAllBooksInputPort,
-                                 UpdatingBookInputPort updatingBookInputPort) {
+                                 UpdatingBookInputPort updatingBookInputPort,
+                                 FindingAvailableBookInputPort findingAvailableBookInputPort,
+                                 UpdatingBookAvailabilityInputPort updatingBookAvailabilityInputPort) {
         this.creatingBookInputPort = creatingBookInputPort;
         this.listingAllBooksInputPort = listingAllBooksInputPort;
         this.updatingBookInputPort = updatingBookInputPort;
+        this.findingAvailableBookInputPort = findingAvailableBookInputPort;
+        this.updatingBookAvailabilityInputPort = updatingBookAvailabilityInputPort;
     }
 
     @Operation(
@@ -97,5 +101,34 @@ public class BookControllerAdapter {
         Book book = this.updatingBookInputPort.update(id, updateBookDto);
         BookResponseDto response = BookResponseDto.fromDomain(book);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(
+            summary = "Obtener libro disponible",
+            description = "Obtener libro disponible por id"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Libro encontrado"),
+            @ApiResponse(responseCode = "404", description = "Libro no encontrado")
+    })
+    @GetMapping("/find-available/{id}")
+    public ResponseEntity<BookResponseDto> findAvailableBookById(@PathVariable UUID id) {
+        Book book = this.findingAvailableBookInputPort.findAvailableBook(id);
+
+        return ResponseEntity.ok(BookResponseDto.fromDomain(book));
+    }
+
+    @Operation(
+            summary = "Actualizar disponibilidad de libro",
+            description = "Actualiza la disponibilidad de un libro en base al id"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Disponibilidad actualizada."),
+            @ApiResponse(responseCode = "404", description = "Disponibilidad no actualizada.")
+    })
+    @PutMapping("/availability/{id}")
+    public ResponseEntity<BookResponseDto> updateBookAvailiability(@PathVariable UUID id) {
+        Book book = this.updatingBookAvailabilityInputPort.updateBookAvailability(id);
+        return ResponseEntity.ok(BookResponseDto.fromDomain(book));
     }
 }

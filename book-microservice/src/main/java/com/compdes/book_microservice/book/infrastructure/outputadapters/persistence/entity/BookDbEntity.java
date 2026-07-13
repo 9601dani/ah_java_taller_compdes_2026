@@ -1,6 +1,5 @@
 package com.compdes.book_microservice.book.infrastructure.outputadapters.persistence.entity;
 
-import com.compdes.book_microservice.category.infrastructure.outputadapters.persistence.entity.CategoryDbEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +28,7 @@ public class BookDbEntity {
     private String title;
     private String authorName;
     private LocalDate publicationDate;
-    private String state;
+    private Boolean isAvailable;
     private String category;
 
     @CreatedDate
@@ -38,12 +37,12 @@ public class BookDbEntity {
     @LastModifiedDate
     private Instant updatedAt;
 
-    public BookDbEntity(UUID id, String title, String authorName, LocalDate publicationDate, String state, String category) {
+    public BookDbEntity(UUID id, String title, String authorName, LocalDate publicationDate, Boolean isAvailable, String category) {
         this.id = id;
         this.title = title;
         this.authorName = authorName;
         this.publicationDate = publicationDate;
-        this.state = state;
+        this.isAvailable = isAvailable;
         this.category = category;
     }
 }

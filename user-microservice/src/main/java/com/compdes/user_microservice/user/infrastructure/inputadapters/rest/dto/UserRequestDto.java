@@ -13,10 +13,8 @@ public class UserRequestDto {
     @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 
-    @NotBlank
     private String description;
 
     public CreateUserDto toDomain() { // TOAPPLICATION

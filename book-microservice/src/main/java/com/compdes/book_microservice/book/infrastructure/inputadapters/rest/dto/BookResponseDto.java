@@ -13,7 +13,7 @@ public class BookResponseDto {
     private String title;
     private String authorName;
     private LocalDate publicationDate;
-    private String state;
+    private Boolean isAvailable;
     private String category;
 
     public static BookResponseDto fromDomain(Book book) {
@@ -22,7 +22,7 @@ public class BookResponseDto {
                 book.getTitle().getTitle(),
                 book.getAuthorName(),
                 book.getPublicationDate().getPublicationDate(),
-                book.getState(),
+                book.getIsAvailable(),
                 book.getCategory().getName()
         );
     }

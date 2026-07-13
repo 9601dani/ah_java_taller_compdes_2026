@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<RestApiError> handleEntityAlreadyExistException(EntityAlreadyExistsException e) {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new RestApiError(HttpStatus.NOT_FOUND.value(), e.getMessage()));
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new RestApiError(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

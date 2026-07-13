@@ -17,7 +17,7 @@ public class BookPersistenceMapper {
                 book.getTitle().getTitle(),
                 book.getAuthorName(),
                 book.getPublicationDate().getPublicationDate(),
-                book.getState(),
+                book.getIsAvailable(),
                 book.getCategory().getName()
         );
     }
@@ -28,7 +28,7 @@ public class BookPersistenceMapper {
                 BookTitle.toDomain(entity.getTitle()),
                 entity.getAuthorName(),
                 BookPublicationDate.fromDomain(entity.getPublicationDate()),
-                entity.getState(),
+                entity.getIsAvailable(),
                 Category.toDomain(entity.getCategory())
         );
     }
