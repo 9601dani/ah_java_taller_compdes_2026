@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface FindingBookByIdOutputPort {
 
-    Optional<Book> findBookById(UUID id) throws EntityNotFoundException;
+    Optional<Book> findBookById(UUID id);
 }

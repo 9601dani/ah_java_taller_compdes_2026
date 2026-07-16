@@ -26,7 +26,7 @@ public class BookRepositoryOutputAdapter implements StoringBookOutputPort, Findi
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Book> findBookById(UUID id) throws EntityNotFoundException {
+    public Optional<Book> findBookById(UUID id) {
         return this.bookDbEntityJpaRepository.findById(id)
                 .map(bookPersistenceMapper::toDomain);
     }

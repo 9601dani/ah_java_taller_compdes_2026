@@ -2,6 +2,7 @@ package com.compdes.loan_microservice.loan.infrastructure.inputadapters.rest;
 
 import com.compdes.loan_microservice.common.infrastructure.annotations.WebAdapter;
 import com.compdes.loan_microservice.loan.application.inputports.CreatingLoanInputPort;
+import com.compdes.loan_microservice.loan.application.inputports.ListingAvailableLoansInputPort;
 import com.compdes.loan_microservice.loan.application.usecases.createloan.CreateLoanDto;
 import com.compdes.loan_microservice.loan.domain.Loan;
 import com.compdes.loan_microservice.loan.infrastructure.inputadapters.rest.dto.LoanRequestDto;
@@ -14,9 +15,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Tag(name = "loans", description = "Operaciones relacionadas a los préstamos.")
 @RequestMapping("/v1/loans")
@@ -25,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoanControllerAdapter {
 
     private final CreatingLoanInputPort creatingLoanInputPort;
+    private final ListingAvailableLoansInputPort listingAvailableLoansInputPort;
 
-    public LoanControllerAdapter(CreatingLoanInputPort creatingLoanInputPort) {
+    public LoanControllerAdapter(CreatingLoanInputPort creatingLoanInputPort, ListingAvailableLoansInputPort listingAvailableLoansInputPort) {
         this.creatingLoanInputPort = creatingLoanInputPort;
+        this.listingAvailableLoansInputPort = listingAvailableLoansInputPort;
     }
 
 
@@ -49,5 +55,21 @@ public class LoanControllerAdapter {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(LoanResponseDto.fromDomain(loan));
     }
+
+    @Operation(
+            summary = "Listado de préstamos activos",
+            description = "Devuelve todos los préstamos activos."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "préstamos encontrados."),
+            @ApiResponse(responseCode = "404", description = "préstamos no encontrados."),
+    })
+    @GetMapping
+    public ResponseEntity<List<LoanResponseDto>> findAll() {
+        List<Loan> loans = this.listingAvailableLoansInputPort.listLoans();
+        return ResponseEntity.ok(loans.stream().map(LoanResponseDto::fromDomain).toList());
+    }
+
+
 
 }
