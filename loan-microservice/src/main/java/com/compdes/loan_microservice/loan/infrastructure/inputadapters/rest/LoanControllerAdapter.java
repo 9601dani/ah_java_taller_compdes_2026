@@ -3,6 +3,7 @@ package com.compdes.loan_microservice.loan.infrastructure.inputadapters.rest;
 import com.compdes.loan_microservice.common.infrastructure.annotations.WebAdapter;
 import com.compdes.loan_microservice.loan.application.inputports.CreatingLoanInputPort;
 import com.compdes.loan_microservice.loan.application.inputports.ListingAvailableLoansInputPort;
+import com.compdes.loan_microservice.loan.application.inputports.UpdatingLoanInputPort;
 import com.compdes.loan_microservice.loan.application.usecases.createloan.CreateLoanDto;
 import com.compdes.loan_microservice.loan.domain.Loan;
 import com.compdes.loan_microservice.loan.infrastructure.inputadapters.rest.dto.LoanRequestDto;
@@ -15,12 +16,10 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "loans", description = "Operaciones relacionadas a los préstamos.")
 @RequestMapping("/v1/loans")
@@ -30,10 +29,12 @@ public class LoanControllerAdapter {
 
     private final CreatingLoanInputPort creatingLoanInputPort;
     private final ListingAvailableLoansInputPort listingAvailableLoansInputPort;
+    private final UpdatingLoanInputPort updatingLoanInputPort;
 
-    public LoanControllerAdapter(CreatingLoanInputPort creatingLoanInputPort, ListingAvailableLoansInputPort listingAvailableLoansInputPort) {
+    public LoanControllerAdapter(CreatingLoanInputPort creatingLoanInputPort, ListingAvailableLoansInputPort listingAvailableLoansInputPort, UpdatingLoanInputPort updatingLoanInputPort) {
         this.creatingLoanInputPort = creatingLoanInputPort;
         this.listingAvailableLoansInputPort = listingAvailableLoansInputPort;
+        this.updatingLoanInputPort = updatingLoanInputPort;
     }
 
 
@@ -70,6 +71,19 @@ public class LoanControllerAdapter {
         return ResponseEntity.ok(loans.stream().map(LoanResponseDto::fromDomain).toList());
     }
 
-
+    @Operation(
+            summary = "Devolver libro",
+            description = "Devuelve un libro de algún préstamo activo."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Libro devuelto."),
+            @ApiResponse(responseCode = "404", description = "Libro no devuelto."),
+    })
+    @PutMapping("/{bookId}")
+    @Transactional
+    public ResponseEntity<LoanResponseDto> returnBook(@PathVariable UUID bookId) {
+        Loan loan = this.updatingLoanInputPort.updateLoan(bookId);
+        return ResponseEntity.ok(LoanResponseDto.fromDomain(loan));
+    }
 
 }
