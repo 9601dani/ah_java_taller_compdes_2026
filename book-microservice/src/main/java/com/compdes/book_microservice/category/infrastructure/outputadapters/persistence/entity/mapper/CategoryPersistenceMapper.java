@@ -14,7 +14,7 @@ public class CategoryPersistenceMapper {
     }
 
     public CategoryDbEntity toDbEntity(Category category){
-        if(category == null);
+        if(category == null) return null;
 
         return new CategoryDbEntity(category.getName().getName());
         

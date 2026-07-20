@@ -13,8 +13,8 @@ public class CategoryName {
         if (name == null || name.isBlank())
             throw new IllegalArgumentException("El nombre de la categoría es obligatorio.");
 
-        String normalizedName = name.trim().toLowerCase(Locale.ROOT);
-        this.name = normalizedName.substring(0, 1).toUpperCase(Locale.ROOT)
+        String normalizedName = name.trim().toLowerCase();
+        this.name = normalizedName.substring(0, 1).toUpperCase()
                 + normalizedName.substring(1);
     }
 
