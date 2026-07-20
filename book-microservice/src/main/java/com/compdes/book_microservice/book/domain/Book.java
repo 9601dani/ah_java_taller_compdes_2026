@@ -28,6 +28,7 @@ public class Book {
     }
 
     public Book(Book book, Boolean isAvailable) {
+        this.bookId = book.getBookId();
         this.title = book.getTitle();
         this.authorName = book.getAuthorName();
         this.publicationDate = book.getPublicationDate();
