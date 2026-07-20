@@ -23,11 +23,11 @@ public class CreateCategoryUseCase implements CreatingCategoryInputPort{
 
     @Override
     public Category save(CreateCategoryDto dto) throws EntityAlreadyExistException{
-       if(findingCategoryByNameOutputPort.findByName(dto.getName().toUpperCase()).isPresent()){
+       Category newCategory = dto.toDomain();
+
+       if(findingCategoryByNameOutputPort.findByName(newCategory.getName().getName()).isPresent()){
         throw new EntityAlreadyExistException("La categoria "+ dto.getName()+" ya existe");
        }
-
-       Category newCategory = dto.toDomain();
 
        return storingCategoryOutputPort.save(newCategory);
     }

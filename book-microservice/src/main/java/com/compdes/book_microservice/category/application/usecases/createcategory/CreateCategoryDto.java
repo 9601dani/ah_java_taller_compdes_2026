@@ -11,6 +11,6 @@ public class CreateCategoryDto {
     private String name;
 
     public Category toDomain(){
-        return new Category(name.toUpperCase());
+        return Category.toDomain(name);
     }
 }

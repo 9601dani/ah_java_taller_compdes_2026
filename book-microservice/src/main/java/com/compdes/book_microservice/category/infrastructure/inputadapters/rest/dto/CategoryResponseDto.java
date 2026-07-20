@@ -9,6 +9,6 @@ public class CategoryResponseDto {
     private String name;
 
     public static CategoryResponseDto fromDomain(Category category){
-        return new CategoryResponseDto(category.getName());
+        return new CategoryResponseDto(category.getName().getName());
     }
 }

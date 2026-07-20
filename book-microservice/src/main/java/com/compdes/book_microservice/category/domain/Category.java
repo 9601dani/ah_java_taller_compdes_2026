@@ -10,9 +10,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Category {
-    private String name;
+    private CategoryName name;
 
     public static Category toDomain(String name) {
-        return new Category(name);
+        return new Category(CategoryName.fromString(name));
     }
 }

@@ -10,15 +10,13 @@ public class CategoryPersistenceMapper {
     public Category toDomain(CategoryDbEntity dbEntity){
         if(dbEntity == null) return null;
         
-        return new Category(
-            dbEntity.getName()
-        );
+        return Category.toDomain(dbEntity.getName());
     }
 
     public CategoryDbEntity toDbEntity(Category category){
         if(category == null);
 
-        return new CategoryDbEntity(category.getName());
+        return new CategoryDbEntity(category.getName().getName());
         
     }
 }

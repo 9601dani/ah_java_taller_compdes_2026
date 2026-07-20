@@ -18,7 +18,7 @@ public class BookPersistenceMapper {
                 book.getAuthorName(),
                 book.getPublicationDate().getPublicationDate(),
                 book.getIsAvailable(),
-                book.getCategory().getName()
+                book.getCategory().getName().getName()
         );
     }
 
