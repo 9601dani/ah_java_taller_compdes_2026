@@ -35,12 +35,9 @@ public class UpdateLoanUseCase implements UpdatingLoanInputPort {
 
         Loan activeLoan = optionalLoan.get();
 
+        // TODO: CONSTRUCTOR ACCEPT LOAN AND IS ACTIVE
         Loan loanUpdated = new Loan(
-                activeLoan.getLoanId(),
-                activeLoan.getUserName(),
-                activeLoan.getBookId(),
-                activeLoan.getInitDate(),
-                activeLoan.getEndDate(),
+                activeLoan,
                 false
         );
 

@@ -26,4 +26,12 @@ public class Book {
         this.category = category;
         return this;
     }
+
+    public Book(Book book, Boolean isAvailable) {
+        this.title = book.getTitle();
+        this.authorName = book.getAuthorName();
+        this.publicationDate = book.getPublicationDate();
+        this.category = book.getCategory();
+        this.isAvailable = isAvailable;
+    }
 }

@@ -26,12 +26,8 @@ public class UpdateBookAvailabilityUseCase implements UpdatingBookAvailabilityIn
 
         // TODO: PREGUNTAR
         Book bookUpdated = new Book(
-                book.getBookId(),
-                book.getTitle(),
-                book.getAuthorName(),
-                book.getPublicationDate(),
-                !book.getIsAvailable(),
-                book.getCategory()
+                book,
+                !book.getIsAvailable()
         );
 
         return this.storingBookOutputPort.save(bookUpdated);

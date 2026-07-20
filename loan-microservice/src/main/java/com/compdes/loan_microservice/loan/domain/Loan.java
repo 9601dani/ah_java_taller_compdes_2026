@@ -15,4 +15,13 @@ public class Loan {
     private InitDate initDate;
     private EndDate endDate;
     private Boolean isActive;
+
+    public Loan(Loan loan, Boolean isActive) {
+        this.loanId = loan.getLoanId();
+        this.userName = loan.getUserName();
+        this.bookId = loan.getBookId();
+        this.initDate = loan.getInitDate();
+        this.endDate = loan.getEndDate();
+        this.isActive = isActive;
+    }
 }
