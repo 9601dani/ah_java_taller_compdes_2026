@@ -11,7 +11,7 @@ public class LoanMapper {
         return new Loan(
                 LoanId.fromUUID(loanDbEntity.getId()),
                 UserName.fromString(loanDbEntity.getUserName()),
-                BookId.fromUUID(loanDbEntity.getId()),
+                BookId.fromUUID(loanDbEntity.getBookId()),
                 InitDate.fromLocalDate(loanDbEntity.getInitDate()),
                 EndDate.fromLocalDate(loanDbEntity.getEndDate()),
                 loanDbEntity.getIsActive()
